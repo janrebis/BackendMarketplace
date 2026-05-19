@@ -1,12 +1,10 @@
-﻿namespace BackendMarketplace.Models
+﻿namespace BackendMarketplace.Dtos
 {
-    public class ProductModel
+    public class ProductResponse
     {
         public int Id { get; set; }
 
         public string? OwnerId { get; set; }
-
-        public ApplicationUser? Owner { get; set; }
 
         public string Name { get; set; } = string.Empty;
 

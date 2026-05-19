@@ -27,6 +27,12 @@ namespace BackendMarketplace.Repositories
                 .FirstOrDefaultAsync(p => p.Id == id);
         }
 
+        public async Task<List<ProductModel>> GetProducts()
+        {
+            return await _context.Products
+                .ToListAsync();
+        }
+
         public async Task<ProductModel?> UpdateProduct(ProductModel product)
         {
             var existingProduct = await _context.Products
@@ -38,7 +44,6 @@ namespace BackendMarketplace.Repositories
             existingProduct.Name = product.Name;
             existingProduct.Price = product.Price;
             existingProduct.Description = product.Description;
-            existingProduct.OwnerId = product.OwnerId;
 
             await _context.SaveChangesAsync();
 

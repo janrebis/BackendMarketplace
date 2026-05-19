@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace inz.Models
+namespace BackendMarketplace.Models
 {
     public class ApplicationUser : IdentityUser
     {

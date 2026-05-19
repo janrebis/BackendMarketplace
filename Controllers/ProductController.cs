@@ -1,6 +1,8 @@
-﻿using BackendMarketplace.Models;
+﻿using BackendMarketplace.Dtos;
 using BackendMarketplace.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace BackendMarketplace.Controllers
 {
@@ -8,18 +10,33 @@ namespace BackendMarketplace.Controllers
     [Route("api/[controller]")]
     public class ProductsController : ControllerBase
     {
-        private readonly ProductService _productService;
+        private readonly IProductService _productService;
 
-        public ProductsController(ProductService productService)
+        public ProductsController(IProductService productService)
         {
             _productService = productService;
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddProduct([FromBody] ProductModel product)
+        [Authorize]
+        public async Task<IActionResult> AddProduct([FromBody] CreateProductRequest request)
         {
-            var id = await _productService.AddProduct(product);
-            return CreatedAtAction(nameof(GetProductById), new { id }, product);
+            var ownerId = GetCurrentUserId();
+
+            var id = await _productService.AddProduct(request, ownerId);
+
+            return CreatedAtAction(
+                nameof(GetProductById),
+                new { id },
+                new { id });
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetProducts()
+        {
+            var products = await _productService.GetProducts();
+
+            return Ok(products);
         }
 
         [HttpGet("{id}")]
@@ -34,12 +51,14 @@ namespace BackendMarketplace.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateProduct(int id, [FromBody] ProductModel product)
+        [Authorize]
+        public async Task<IActionResult> UpdateProduct(
+            int id,
+            [FromBody] UpdateProductRequest request)
         {
-            if (id != product.Id)
-                return BadRequest("ID mismatch");
+            var ownerId = GetCurrentUserId();
 
-            var updatedProduct = await _productService.UpdateProduct(product);
+            var updatedProduct = await _productService.UpdateProduct(id, request, ownerId);
 
             if (updatedProduct == null)
                 return NotFound();
@@ -48,14 +67,23 @@ namespace BackendMarketplace.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize]
         public async Task<IActionResult> DeleteProduct(int id)
         {
-            var deleted = await _productService.DeleteProduct(id);
+            var ownerId = GetCurrentUserId();
+
+            var deleted = await _productService.DeleteProduct(id, ownerId);
 
             if (!deleted)
                 return NotFound();
 
             return NoContent();
+        }
+
+        private string GetCurrentUserId()
+        {
+            return User.FindFirstValue(ClaimTypes.NameIdentifier)
+                ?? throw new UnauthorizedAccessException("User id not found in token.");
         }
     }
 }
