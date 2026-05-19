@@ -1,8 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
-
-using Microsoft.AspNetCore.Mvc;
-using BackendMarketplace.Models;
+﻿using BackendMarketplace.Models;
 using BackendMarketplace.Services;
+using Microsoft.AspNetCore.Mvc;
 
 namespace BackendMarketplace.Controllers
 {
@@ -17,7 +15,6 @@ namespace BackendMarketplace.Controllers
             _productService = productService;
         }
 
-        // POST: api/products
         [HttpPost]
         public async Task<IActionResult> AddProduct([FromBody] ProductModel product)
         {
@@ -25,7 +22,6 @@ namespace BackendMarketplace.Controllers
             return CreatedAtAction(nameof(GetProductById), new { id }, product);
         }
 
-        // GET: api/products/{id}
         [HttpGet("{id}")]
         public async Task<IActionResult> GetProductById(int id)
         {
@@ -37,23 +33,28 @@ namespace BackendMarketplace.Controllers
             return Ok(product);
         }
 
-        // PUT: api/products/{id}
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateProduct(int id, [FromBody] ProductModel product)
         {
             if (id != product.Id)
                 return BadRequest("ID mismatch");
 
-            var updated = await _productService.UpdateProduct(product);
+            var updatedProduct = await _productService.UpdateProduct(product);
 
-            return Ok(updated);
+            if (updatedProduct == null)
+                return NotFound();
+
+            return Ok(updatedProduct);
         }
 
-        // DELETE: api/products/{id}
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteProduct(int id)
         {
-            await _productService.DeleteProduct(id);
+            var deleted = await _productService.DeleteProduct(id);
+
+            if (!deleted)
+                return NotFound();
+
             return NoContent();
         }
     }

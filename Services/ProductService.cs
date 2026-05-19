@@ -1,4 +1,5 @@
 ﻿using BackendMarketplace.Models;
+using BackendMarketplace.Repositories;
 
 namespace BackendMarketplace.Services
 {
@@ -10,26 +11,25 @@ namespace BackendMarketplace.Services
         {
             _productRepository = productRepository;
         }
-       
+
         public async Task<int> AddProduct(ProductModel product)
         {
-            //TODO: Walidacja i jakieś sensowne przetwarzanie danych
             return await _productRepository.AddProduct(product);
         }
 
-        public async Task<ProductModel> GetProductById(int id)
+        public async Task<ProductModel?> GetProductById(int id)
         {
             return await _productRepository.GetProductById(id);
         }
 
-        public async Task<int> UpdateProduct(ProductModel product) 
-        { 
+        public async Task<ProductModel?> UpdateProduct(ProductModel product)
+        {
             return await _productRepository.UpdateProduct(product);
         }
 
-        public async Task DeleteProduct(int id)
+        public async Task<bool> DeleteProduct(int id)
         {
-            await _productRepository.DeleteProduct(id);
-;        }
+            return await _productRepository.DeleteProduct(id);
+        }
     }
 }
