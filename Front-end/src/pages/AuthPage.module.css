@@ -1,0 +1,75 @@
+.page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.box {
+  width: 100%;
+  max-width: 400px;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 40px;
+}
+
+.header {
+  margin-bottom: 32px;
+}
+
+.logo {
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+  color: var(--accent);
+  display: block;
+  margin-bottom: 12px;
+}
+
+.title {
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.hint {
+  font-size: 12px;
+  color: var(--muted);
+  font-family: var(--mono);
+}
+
+.footer {
+  margin-top: 24px;
+  text-align: center;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.footerLink {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.footerLink:hover { text-decoration: underline; }
