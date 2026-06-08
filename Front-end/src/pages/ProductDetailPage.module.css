@@ -1,0 +1,83 @@
+.page {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 40px 24px;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 1fr 280px;
+  gap: 32px;
+  align-items: start;
+}
+
+@media (max-width: 640px) {
+  .layout { grid-template-columns: 1fr; }
+}
+
+.tag {
+  font-size: 12px;
+  font-family: var(--mono);
+  color: var(--muted);
+  margin-bottom: 12px;
+}
+
+.name {
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 20px;
+}
+
+.desc {
+  font-size: 15px;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.sidebar {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  position: sticky;
+  top: 72px;
+}
+
+.priceBox {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+}
+
+.price {
+  font-size: 32px;
+  font-weight: 700;
+  font-family: var(--mono);
+  color: var(--accent);
+}
+
+.currency {
+  font-size: 14px;
+  color: var(--muted);
+}
+
+.ownerNote {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  font-size: 13px;
+  color: var(--muted);
+  font-family: var(--mono);
+}
+
+.state {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 80px 24px;
+  color: var(--muted);
+  font-family: var(--mono);
+}
