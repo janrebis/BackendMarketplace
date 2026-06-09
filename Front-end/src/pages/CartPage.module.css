@@ -1,0 +1,252 @@
+.page {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 40px 24px;
+}
+
+.header {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+.title {
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.count {
+  font-size: 13px;
+  font-family: var(--mono);
+  color: var(--muted);
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  gap: 24px;
+  align-items: start;
+}
+
+@media (max-width: 700px) {
+  .layout { grid-template-columns: 1fr; }
+}
+
+.items {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px 20px;
+  flex-wrap: wrap;
+}
+
+.rowInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+  flex: 1;
+}
+
+.rowName {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text);
+  transition: color 0.15s;
+}
+
+.rowName:hover { color: var(--accent); }
+
+.rowUnit {
+  font-size: 12px;
+  font-family: var(--mono);
+  color: var(--muted);
+}
+
+.rowControls {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-shrink: 0;
+}
+
+.qty {
+  display: flex;
+  align-items: center;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.qtyBtn {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  color: var(--muted);
+  background: var(--bg3);
+  transition: background 0.1s, color 0.1s;
+}
+
+.qtyBtn:hover {
+  background: var(--border);
+  color: var(--text);
+}
+
+.qtyVal {
+  min-width: 36px;
+  text-align: center;
+  font-family: var(--mono);
+  font-size: 14px;
+  font-weight: 600;
+  background: var(--bg2);
+  padding: 0 4px;
+  line-height: 32px;
+}
+
+.rowTotal {
+  font-family: var(--mono);
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--accent);
+  min-width: 90px;
+  text-align: right;
+}
+
+.removeBtn {
+  color: var(--muted);
+  font-size: 14px;
+  padding: 4px 6px;
+  border-radius: var(--radius);
+  transition: color 0.15s;
+}
+
+.removeBtn:hover { color: var(--danger); }
+
+.summary {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  position: sticky;
+  top: 72px;
+}
+
+.summaryTitle {
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.summaryLines {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.summaryLine {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--muted);
+  font-family: var(--mono);
+}
+
+.summaryLineName {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 160px;
+}
+
+.summaryTotal {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding-top: 12px;
+  border-top: 1px solid var(--border);
+  font-weight: 600;
+}
+
+.totalAmount {
+  font-size: 20px;
+  font-family: var(--mono);
+  color: var(--accent);
+}
+
+.notice {
+  font-size: 12px;
+  font-family: var(--mono);
+  color: var(--muted);
+  text-align: center;
+}
+
+.notice span { color: var(--text); }
+
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding: 80px 0;
+  color: var(--muted);
+}
+
+.empty .title {
+  color: var(--text);
+  margin-bottom: 8px;
+}
+
+.success {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding: 80px 0;
+  text-align: center;
+}
+
+.successIcon {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: var(--success);
+  color: #0d0d0f;
+  font-size: 28px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.successTitle {
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.successSub {
+  color: var(--muted);
+  max-width: 360px;
+}
+
+.successActions {
+  display: flex;
+  gap: 12px;
+  margin-top: 8px;
+}
