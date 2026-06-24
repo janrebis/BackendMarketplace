@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using BackendMarketplace.Models;
 
 namespace BackendMarketplace.Dtos
 {
@@ -13,5 +14,11 @@ namespace BackendMarketplace.Dtos
 
         [MaxLength(1000)]
         public string Description { get; set; } = string.Empty;
+
+        [MaxLength(500)]
+        public string ImageUrl { get; set; } = string.Empty;
+
+        [EnumDataType(typeof(ProductCategory))]
+        public ProductCategory Category { get; set; }
     }
 }

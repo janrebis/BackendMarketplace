@@ -16,7 +16,7 @@ export default function RegisterPage() {
     setError('');
 
     if (password.length < 12) {
-      setError('Password must be at least 12 characters.');
+      setError('Hasło musi mieć co najmniej 12 znaków.');
       return;
     }
 
@@ -31,7 +31,7 @@ export default function RegisterPage() {
       if (Array.isArray(data)) {
         setError(data.map((e: { description: string }) => e.description).join(' '));
       } else {
-        setError('Registration failed. Try again.');
+        setError('Rejestracja nie powiodła się. Spróbuj ponownie.');
       }
     } finally {
       setLoading(false);
@@ -43,32 +43,32 @@ export default function RegisterPage() {
       <div className={styles.box}>
         <div className={styles.header}>
           <span className={styles.logo}>MRKT</span>
-          <h1 className={styles.title}>Create account</h1>
+          <h1 className={styles.title}>Utwórz konto</h1>
         </div>
 
         <form onSubmit={handleSubmit} className={styles.form}>
           <div className={styles.field}>
-            <label className={styles.label}>Email</label>
+            <label className={styles.label}>E-mail</label>
             <input
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder="you@example.com"
+              placeholder="ty@przyklad.pl"
               required
               autoFocus
             />
           </div>
 
           <div className={styles.field}>
-            <label className={styles.label}>Password</label>
+            <label className={styles.label}>Hasło</label>
             <input
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              placeholder="min. 12 characters"
+              placeholder="min. 12 znaków"
               required
             />
-            <span className={styles.hint}>Minimum 12 characters</span>
+            <span className={styles.hint}>Minimum 12 znaków</span>
           </div>
 
           {error && <p className="error-msg">{error}</p>}
@@ -79,13 +79,13 @@ export default function RegisterPage() {
             style={{ width: '100%' }}
             disabled={loading}
           >
-            {loading ? 'Creating account...' : 'Create account'}
+            {loading ? 'Tworzenie konta...' : 'Utwórz konto'}
           </button>
         </form>
 
         <p className={styles.footer}>
-          Already have an account?{' '}
-          <Link to="/login" className={styles.footerLink}>Sign in</Link>
+          Masz już konto?{' '}
+          <Link to="/login" className={styles.footerLink}>Zaloguj się</Link>
         </p>
       </div>
     </div>

@@ -8,7 +8,7 @@ namespace BackendMarketplace.Repositories
 
         Task<ProductModel?> GetProductById(int id);
 
-        Task<List<ProductModel>> GetProducts();
+        Task<List<ProductModel>> GetProducts(int? page = null, int? pageSize = null);
 
         Task<ProductModel?> UpdateProduct(ProductModel product);
 

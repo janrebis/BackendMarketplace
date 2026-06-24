@@ -27,27 +27,30 @@ namespace BackendMarketplace.Repositories
                 .FirstOrDefaultAsync(p => p.Id == id);
         }
 
-        public async Task<List<ProductModel>> GetProducts()
+        public async Task<List<ProductModel>> GetProducts(int? page = null, int? pageSize = null)
         {
-            return await _context.Products
-                .ToListAsync();
+            var query = _context.Products
+                .OrderBy(p => p.Id)
+                .AsQueryable();
+
+            if (page.HasValue && pageSize.HasValue)
+            {
+                query = query
+                    .Skip((Math.Max(page.Value, 1) - 1) * pageSize.Value)
+                    .Take(pageSize.Value);
+            }
+
+            return await query.ToListAsync();
         }
 
         public async Task<ProductModel?> UpdateProduct(ProductModel product)
         {
-            var existingProduct = await _context.Products
-                .FirstOrDefaultAsync(p => p.Id == product.Id);
-
-            if (existingProduct == null)
-                return null;
-
-            existingProduct.Name = product.Name;
-            existingProduct.Price = product.Price;
-            existingProduct.Description = product.Description;
-
+            // product is already tracked by this scoped DbContext (loaded earlier
+            // via GetProductById), so its modified properties are picked up by the
+            // change tracker - no need to fetch it again.
             await _context.SaveChangesAsync();
 
-            return existingProduct;
+            return product;
         }
 
         public async Task<bool> DeleteProduct(int id)

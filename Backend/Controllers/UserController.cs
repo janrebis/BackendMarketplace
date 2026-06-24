@@ -70,10 +70,11 @@ namespace BackendMarketplace.Controllers
             if (user == null)
                 return NotFound();
 
+            // Public profile lookup (e.g. viewing a listing's seller) -
+            // email is intentionally excluded to avoid leaking it to other users.
             return Ok(new
             {
                 user.Id,
-                user.Email,
                 user.UserName
             });
         }

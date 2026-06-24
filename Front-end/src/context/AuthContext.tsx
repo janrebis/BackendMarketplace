@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useEffect, type ReactNode } from 'react';
+import { createContext, useContext, useState, type ReactNode } from 'react';
 import * as authApi from '../api/auth';
 import type { User } from '../types';
 
@@ -14,23 +14,20 @@ interface AuthContextValue {
 const AuthContext = createContext<AuthContextValue | null>(null);
 
 export function AuthProvider({ children }: { children: ReactNode }) {
-  const [user, setUser] = useState<User | null>(null);
-  const [token, setToken] = useState<string | null>(null);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const savedToken = localStorage.getItem('token');
+  const [token, setToken] = useState<string | null>(() =>
+    localStorage.getItem('token')
+  );
+  const [user, setUser] = useState<User | null>(() => {
     const savedUser = localStorage.getItem('user');
-    if (savedToken && savedUser) {
-      setToken(savedToken);
-      try {
-        setUser(JSON.parse(savedUser));
-      } catch {
-        localStorage.removeItem('user');
-      }
+    if (!savedUser) return null;
+    try {
+      return JSON.parse(savedUser);
+    } catch {
+      localStorage.removeItem('user');
+      return null;
     }
-    setLoading(false);
-  }, []);
+  });
+  const loading = false;
 
   const login = async (email: string, password: string) => {
     const res = await authApi.login(email, password);

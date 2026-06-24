@@ -9,6 +9,7 @@ import ProductsPage from './pages/ProductsPage';
 import ProductDetailPage from './pages/ProductDetailPage';
 import MyProductsPage from './pages/MyProductsPage';
 import CartPage from './pages/CartPage';
+import OrdersPage from './pages/OrdersPage';
 
 export default function App() {
   return (
@@ -34,6 +35,14 @@ export default function App() {
               element={
                 <ProtectedRoute>
                   <CartPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/orders"
+              element={
+                <ProtectedRoute>
+                  <OrdersPage />
                 </ProtectedRoute>
               }
             />

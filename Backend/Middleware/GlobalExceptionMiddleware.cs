@@ -1,4 +1,4 @@
-﻿using System.Net;
+using System.Net;
 using System.Text.Json;
 
 namespace BackendMarketplace.Middleware
@@ -28,6 +28,20 @@ namespace BackendMarketplace.Middleware
                     context,
                     ex,
                     HttpStatusCode.Forbidden);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                await HandleExceptionAsync(
+                    context,
+                    ex,
+                    HttpStatusCode.NotFound);
+            }
+            catch (Exception ex) when (ex is ArgumentException or InvalidOperationException)
+            {
+                await HandleExceptionAsync(
+                    context,
+                    ex,
+                    HttpStatusCode.BadRequest);
             }
             catch (Exception ex)
             {

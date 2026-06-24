@@ -32,9 +32,9 @@ namespace BackendMarketplace.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetProducts()
+        public async Task<IActionResult> GetProducts([FromQuery] int? page, [FromQuery] int? pageSize)
         {
-            var products = await _productService.GetProducts();
+            var products = await _productService.GetProducts(page, pageSize);
 
             return Ok(products);
         }

@@ -20,6 +20,8 @@ namespace BackendMarketplace.Services
                 Name = request.Name,
                 Price = request.Price,
                 Description = request.Description,
+                ImageUrl = request.ImageUrl,
+                Category = request.Category,
                 OwnerId = ownerId
             };
 
@@ -36,9 +38,9 @@ namespace BackendMarketplace.Services
             return MapToResponse(product);
         }
 
-        public async Task<List<ProductResponse>> GetProducts()
+        public async Task<List<ProductResponse>> GetProducts(int? page = null, int? pageSize = null)
         {
-            var products = await _productRepository.GetProducts();
+            var products = await _productRepository.GetProducts(page, pageSize);
 
             return products
                 .Select(MapToResponse)
@@ -61,6 +63,8 @@ namespace BackendMarketplace.Services
             existingProduct.Name = request.Name;
             existingProduct.Price = request.Price;
             existingProduct.Description = request.Description;
+            existingProduct.ImageUrl = request.ImageUrl;
+            existingProduct.Category = request.Category;
 
             var updatedProduct = await _productRepository.UpdateProduct(existingProduct);
 
@@ -90,7 +94,9 @@ namespace BackendMarketplace.Services
                 OwnerId = product.OwnerId,
                 Name = product.Name,
                 Price = product.Price,
-                Description = product.Description
+                Description = product.Description,
+                ImageUrl = product.ImageUrl,
+                Category = product.Category
             };
         }
     }

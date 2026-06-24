@@ -8,7 +8,7 @@ namespace BackendMarketplace.Services
 
         Task<ProductResponse?> GetProductById(int id);
 
-        Task<List<ProductResponse>> GetProducts();
+        Task<List<ProductResponse>> GetProducts(int? page = null, int? pageSize = null);
 
         Task<ProductResponse?> UpdateProduct(int id, UpdateProductRequest request, string ownerId);
 

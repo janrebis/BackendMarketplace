@@ -4,6 +4,8 @@ import { getProductById } from '../api/products';
 import { useAuth } from '../context/AuthContext';
 import { useCart } from '../context/CartContext';
 import type { Product } from '../types';
+import { CATEGORY_LABELS } from '../types';
+import { resolveAssetUrl } from '../utils/assetUrl';
 import styles from './ProductDetailPage.module.css';
 
 export default function ProductDetailPage() {
@@ -21,7 +23,7 @@ export default function ProductDetailPage() {
     if (!id) return;
     getProductById(Number(id))
       .then((res) => setProduct(res.data))
-      .catch(() => setError('Product not found.'))
+      .catch(() => setError('Produktu nie znaleziono.'))
       .finally(() => setLoading(false));
   }, [id]);
 
@@ -35,20 +37,25 @@ export default function ProductDetailPage() {
     setTimeout(() => setAdded(false), 2000);
   };
 
-  if (loading) return <div className={styles.state}>Loading...</div>;
-  if (error || !product) return <div className={styles.state}><p className="error-msg">{error || 'Not found.'}</p></div>;
+  if (loading) return <div className={styles.state}>Wczytywanie...</div>;
+  if (error || !product) return <div className={styles.state}><p className="error-msg">{error || 'Nie znaleziono.'}</p></div>;
 
   return (
     <div className={styles.page}>
       <button className="btn btn-ghost" onClick={() => navigate(-1)} style={{ marginBottom: 24 }}>
-        ← Back
+        ← Wróć
       </button>
 
       <div className={styles.layout}>
         <div className={styles.main}>
-          <div className={styles.tag}>Product #{product.id}</div>
+          {product.imageUrl ? (
+            <img className={styles.image} src={resolveAssetUrl(product.imageUrl)} alt={product.name} />
+          ) : (
+            <div className={styles.imagePlaceholder}>📦</div>
+          )}
+          <div className={styles.tag}>{CATEGORY_LABELS[product.category]} · Produkt #{product.id}</div>
           <h1 className={styles.name}>{product.name}</h1>
-          <p className={styles.desc}>{product.description || 'No description provided.'}</p>
+          <p className={styles.desc}>{product.description || 'Brak opisu.'}</p>
         </div>
 
         <div className={styles.sidebar}>
@@ -59,13 +66,13 @@ export default function ProductDetailPage() {
 
           {isOwner ? (
             <div className={styles.ownerNote}>
-              <span>This is your listing.</span>
+              <span>To Twoje ogłoszenie.</span>
               <button
                 className="btn btn-ghost"
                 onClick={() => navigate('/my-products')}
                 style={{ width: '100%' }}
               >
-                Manage in My listings →
+                Zarządzaj w Moich ogłoszeniach →
               </button>
             </div>
           ) : user ? (
@@ -75,7 +82,7 @@ export default function ProductDetailPage() {
               onClick={handleAddToCart}
               disabled={added}
             >
-              {added ? '✓ Added to cart' : inCart ? 'Add again' : 'Add to cart'}
+              {added ? '✓ Dodano do koszyka' : inCart ? 'Dodaj ponownie' : 'Dodaj do koszyka'}
             </button>
           ) : (
             <button
@@ -83,7 +90,7 @@ export default function ProductDetailPage() {
               style={{ width: '100%' }}
               onClick={() => navigate('/login')}
             >
-              Login to buy
+              Zaloguj się, aby kupić
             </button>
           )}
         </div>

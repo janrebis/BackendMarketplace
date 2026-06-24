@@ -19,7 +19,7 @@ export default function LoginPage() {
       await login(email, password);
       navigate('/');
     } catch {
-      setError('Invalid email or password.');
+      setError('Nieprawidłowy e-mail lub hasło.');
     } finally {
       setLoading(false);
     }
@@ -30,24 +30,24 @@ export default function LoginPage() {
       <div className={styles.box}>
         <div className={styles.header}>
           <span className={styles.logo}>MRKT</span>
-          <h1 className={styles.title}>Sign in</h1>
+          <h1 className={styles.title}>Zaloguj się</h1>
         </div>
 
         <form onSubmit={handleSubmit} className={styles.form}>
           <div className={styles.field}>
-            <label className={styles.label}>Email</label>
+            <label className={styles.label}>E-mail</label>
             <input
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder="you@example.com"
+              placeholder="ty@przyklad.pl"
               required
               autoFocus
             />
           </div>
 
           <div className={styles.field}>
-            <label className={styles.label}>Password</label>
+            <label className={styles.label}>Hasło</label>
             <input
               type="password"
               value={password}
@@ -65,13 +65,13 @@ export default function LoginPage() {
             style={{ width: '100%' }}
             disabled={loading}
           >
-            {loading ? 'Signing in...' : 'Sign in'}
+            {loading ? 'Logowanie...' : 'Zaloguj się'}
           </button>
         </form>
 
         <p className={styles.footer}>
-          No account?{' '}
-          <Link to="/register" className={styles.footerLink}>Register</Link>
+          Nie masz konta?{' '}
+          <Link to="/register" className={styles.footerLink}>Zarejestruj się</Link>
         </p>
       </div>
     </div>
